@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getMenuCase } from "../../application/getMenuUseCase";
+import { getMenuCase } from "../../application/usesCase/getMenuUseCase";
 
 export class MenuControllerGet {
     constructor(

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RestaurantData } from "../../domain/repositories/restaurantRepository";
-import { CreateRestaurantCase } from "../../application/createRestaurantUseCase";
+import { CreateRestaurantCase } from "../../application/usesCase/createRestaurantUseCase";
 
 export class RestaurantControllerCreate {
     constructor(

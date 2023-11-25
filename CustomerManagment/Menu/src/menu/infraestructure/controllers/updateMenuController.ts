@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MenuDataUpdate } from "../../domain/repositories/menuRepository";
-import { updateMenuCase } from "../../application/updateMenuUseCase";
+import { updateMenuCase } from "../../application/usesCase/updateMenuUseCase";
 
 export class MenuControllerUpdate {
     constructor(

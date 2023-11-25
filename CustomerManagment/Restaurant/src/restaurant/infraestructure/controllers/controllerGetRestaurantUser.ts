@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRestaurantUserCase } from "../../application/getRestaurantUserUseCase";
+import { getRestaurantUserCase } from "../../application/usesCase/getRestaurantUserUseCase";
 
 export class RestaurantControllerGetUser {
     constructor(

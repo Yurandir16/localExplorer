@@ -1,19 +1,19 @@
 import { RestaurantControllerCreate } from "./controllers/controllerCreatreRestaurant";
 import { RestaurantControllerGet } from "./controllers/controllerGetRestaurant";
 import { RestaurantRepositoryr } from "./repositories/postgresRepository";
-import { CreateRestaurantCase } from "../application/createRestaurantUseCase";
-import { getRestaurantCase } from "../application/getRestaurantUseCase";
-import { getRestaurantIdCase } from "../application/getRestaurantIdUseCase";
+import { CreateRestaurantCase } from "../application/usesCase/createRestaurantUseCase";
+import { getRestaurantCase } from "../application/usesCase/getRestaurantUseCase";
+import { getRestaurantIdCase } from "../application/usesCase/getRestaurantIdUseCase";
 import { RestaurantControllerGetId } from "./controllers/controllerGetRestaurantId";
 import { RestaurantControllerGetUser } from "./controllers/controllerGetRestaurantUser";
-import { getRestaurantUserCase } from "../application/getRestaurantUserUseCase";
-import { inactiveRestaurantCase } from "../application/inactiveRestaurantUseCase";
+import { getRestaurantUserCase } from "../application/usesCase/getRestaurantUserUseCase";
+import { inactiveRestaurantCase } from "../application/usesCase/inactiveRestaurantUseCase";
 import { inactiveRestaurantController } from "./controllers/controllerInactiveRestaurant";
 import { updateRestaurantController } from "./controllers/controllerUpdateRestaurant";
-import { updateRestaurantCase } from "../application/updateRestaurantUseCase";
+import { updateRestaurantCase } from "../application/usesCase/updateRestaurantUseCase";
 //import { getImageRestaurantCase } from "../application/getImageRestaurantUseCase";
 import { getImageRestaurantController } from "./controllers/controllerGetImagen";
-import { getLocationRestaurantCase } from "../application/getLocationRestaurant";
+import { getLocationRestaurantCase } from "../application/usesCase/getLocationRestaurant";
 import { RestaurantLocationControllerGet } from "./controllers/controllerGetLocation";
 
 const RestaurantRepository = new RestaurantRepositoryr()

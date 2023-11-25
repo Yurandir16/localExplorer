@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { inactiveRestaurantCase } from "../../application/inactiveRestaurantUseCase";
+import { inactiveRestaurantCase } from "../../application/usesCase/inactiveRestaurantUseCase";
 
 export class inactiveRestaurantController {
     constructor(

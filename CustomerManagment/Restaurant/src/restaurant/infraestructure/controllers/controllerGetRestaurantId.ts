@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getRestaurantIdCase } from "../../application/getRestaurantIdUseCase";
+import { getRestaurantIdCase } from "../../application/usesCase/getRestaurantIdUseCase";
 
 export class RestaurantControllerGetId {
     constructor(

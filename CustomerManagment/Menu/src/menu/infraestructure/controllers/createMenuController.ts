@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MenuData } from "../../domain/repositories/menuRepository";
-import { CreateMenuCase } from "../../application/createMenuUseCase";
+import { CreateMenuCase } from "../../application/usesCase/createMenuUseCase";
 
 export class MenuControllerCreate {
     constructor(

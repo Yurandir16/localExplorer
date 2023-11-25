@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { updateRestaurantCase } from "../../application/updateRestaurantUseCase";
+import { updateRestaurantCase } from "../../application/usesCase/updateRestaurantUseCase";
 import { RestaurantDataUpdate } from "../../domain/repositories/restaurantRepository";
 
 export class updateRestaurantController {

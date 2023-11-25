@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getLocationRestaurantCase } from "../../application/getLocationRestaurant";
+import { getLocationRestaurantCase } from "../../application/usesCase/getLocationRestaurant";
 
 export class RestaurantLocationControllerGet {
     constructor(

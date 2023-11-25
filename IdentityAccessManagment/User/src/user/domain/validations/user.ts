@@ -1,8 +1,10 @@
 import { IsString, IsUUID, Length, IsBoolean, IsNotEmpty, ValidateIf, IsIn, IsOptional,IsEmail} from 'class-validator';
+
+
 export class ValidatorRegisterUser {
     @IsNotEmpty()
     @IsUUID()
-    public id: string;
+    public uuid: string;
 
     @IsNotEmpty()
     @IsString()
@@ -16,31 +18,30 @@ export class ValidatorRegisterUser {
     @IsNotEmpty()
     @IsString()
     @Length(10) 
-    public phone: string;
+    public phone_number: string;
 
     @IsNotEmpty()
     @IsString()
-    public pass: string;
+    public password: string;
 
    
 
     constructor(
-        id: string,
+        uuid: string,
         name: string,
         email: string,
-        phone: string,
-        pass: string,
+        phone_number: string,
+        password: string,
     ) {
-        this.id = id;
+        this.uuid = uuid;
         this.name = name;
         this.email = email;
-        this.phone = phone;
-        this.pass = pass;
+        this.phone_number = phone_number;
+        this.password = password;
     }
 
 
 }
-
 export class ValidateLogin {
     @IsNotEmpty()
     @IsEmail()
@@ -48,13 +49,82 @@ export class ValidateLogin {
 
     @IsNotEmpty()
     @IsString()
-    public pass: string;
+    public password: string;
 
     constructor(
         email:string,
-        pass:string,
+        password:string,
     ){
         this.email = email,
-        this.pass = pass
+        this.password = password
+    }
+}
+
+export class ValidatorupdatePassword {
+
+    @IsNotEmpty()
+    @IsUUID()
+    public uuid: string;
+
+    @IsNotEmpty()
+    @IsString()
+    public password: string;
+
+    constructor(
+        uuid: string,
+        password: string
+    ) {
+        this.uuid = uuid;
+        this.password = password;
+    }
+}
+
+
+export class ValidatorId {
+    @IsNotEmpty()
+    @IsUUID()
+    public uuid: string;
+    constructor(uuid:string) {
+        this.uuid = uuid
+    }
+}
+
+export class ValidatorUpdate {
+    @IsNotEmpty()
+    @IsUUID()
+    public uuid: string;
+
+    @IsOptional()
+    @IsString()
+    @Length(1, 100)
+    public name?: string;
+
+    @IsOptional()
+    @IsString()
+    @Length(1, 100)
+    public email?: string;
+
+    @IsOptional()
+    @IsString()
+    @Length(10)  
+    public phone_number?: string;
+
+    @IsOptional()
+    @IsString()
+    public img_url?: string;
+
+   
+    constructor( 
+        uuid: string,
+        name?: string,
+        email?: string,
+        phone_number?: string,
+        img_url?: string,
+        ) {
+        this.uuid = uuid;
+        this.name = name;
+        this.email = email;
+        this.phone_number = phone_number
+        this.img_url = img_url
     }
 }

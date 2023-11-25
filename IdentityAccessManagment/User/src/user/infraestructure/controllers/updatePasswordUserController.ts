@@ -1,42 +1,36 @@
 import { Request, Response } from "express";
+import { UpdateUserByIdUseCase } from "../../application/usesCase/updateUserByIdUseCase";
+import { UpdatePasswordUserUsecase } from "../../application/usesCase/updatePasswordUserUseCase";
 
-import { LoginUserUseCase } from "../../application/usesCase/loginUserUseCase";
 
-export class LoginUserController {
-    constructor(readonly loginUserController: LoginUserUseCase) {}
 
-    async run(req:Request,res:Response) {
-        
+export class UpdatePasswordController {
+    constructor(readonly updatePasswordUseCase: UpdatePasswordUserUsecase) { }
+    async run(req: Request, res: Response) {
         try {
-           
+
             let {
-               email,
-               password
+                uuid,
+                password,
             } = req.body
 
-            
+            let updatePasswor = await this.updatePasswordUseCase.run(uuid, password)
 
-    
-            let loginUser = await this.loginUserController.run(email, password)
-            
-            if(loginUser === 'Unauthorized'){
-                return res.status(401).send({
-                    status: "Unauthorized",
-                });
-            }
-            //es cuando no encuentra nada en la base de datos pero pa que no sepa el usuario que fallo 
-            if(loginUser === null){
-                return res.status(401).send({
-                    status: "Unauthorized",
-                });
-            }
-            if (loginUser) {
-                return res.status(201).send({
-                   data: loginUser
+            if (updatePasswor) {
+                return res.status(200).send({
+                    status: "succes",
+                    data: {
+                        
+                    }
                 })
+            } else {
+                return res.status(404).send({
+                    status: "error",
+                    message: "User not found"
+                });
             }
-             
         } catch (error) {
+
             if (error instanceof Error) {
                 if (error.message.includes('Duplicate entry') && error.message.includes('for key \'users.email\'')) {
                     return res.status(409).send({
@@ -51,10 +45,9 @@ export class LoginUserController {
                     });
                 }
             }
-           
             return res.status(500).send({
                 status: "error",
-                message: "An unexpected error occurred. Please try again later.",
+                message: "An error occurred while update password."
             });
         }
     }

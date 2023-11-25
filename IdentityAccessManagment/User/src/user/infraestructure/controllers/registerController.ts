@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { RegisterUserUseCase } from "../../application/registerUseCase";
+import { RegisterUserUseCase } from "../../application/usesCase/registerUseCase";
 import { User } from "../../domain/entities/user";
 import { UploadedFile } from "express-fileupload";
-import uploadToFirebase from "../../../helpers/saveImages";
+import uploadToFirebase from "../../../../../../auxFolder/api-localexplorer/src/helpers/saveImages";
 
 
 export class ResgisterUserController {
@@ -12,10 +12,22 @@ export class ResgisterUserController {
 
         try {
 
-            let {name,email,phone,pass} = req.body
-        
-            let registerUser = await this.registerUserUseCase.run( name,email,phone,pass)
+            let {
+                name,
+                email,
+                phone_number,
+                password,
+            } = req.body
             
+
+
+
+            let registerUser = await this.registerUserUseCase.run(
+                name,
+                email,
+                phone_number,
+                password,
+            )
             if (registerUser instanceof Error) {
                 return res.status(409).send({
                     status: "error",
@@ -26,10 +38,10 @@ export class ResgisterUserController {
                 return res.status(201).send({
                     status: "succes",
                     data: {
-                        id: registerUser.id,
+                        id: registerUser.uuid,
                         name: registerUser.name,
                         email: registerUser.email,
-                        phone: registerUser.phone
+                        phone_number: registerUser.phone_number
                     }
                 })
             }

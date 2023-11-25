@@ -1,10 +1,10 @@
 import { MenuRepositoryr } from "./repositories/postgresRepository";
 import { MenuControllerCreate } from "./controllers/createMenuController";
-import { CreateMenuCase } from "../application/createMenuUseCase";
+import { CreateMenuCase } from "../application/usesCase/createMenuUseCase";
 import { MenuControllerGet } from "./controllers/getMenuController";
-import { getMenuCase } from "../application/getMenuUseCase";
+import { getMenuCase } from "../application/usesCase/getMenuUseCase";
 import { MenuControllerUpdate } from "./controllers/updateMenuController";
-import { updateMenuCase } from "../application/updateMenuUseCase";
+import { updateMenuCase } from "../application/usesCase/updateMenuUseCase";
 import { getPdfMenuController } from "./controllers/getPdfController";
 //import { getPdfMenuCase } from "../application/getpdfUseCase";
 

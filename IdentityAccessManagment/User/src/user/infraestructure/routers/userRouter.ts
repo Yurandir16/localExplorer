@@ -1,12 +1,16 @@
 import express from "express";
-import { loginUserController,resgisterUserController } from "../dependencies";
-import { validateToken } from "../../../helpers/veryfyToken";
+import { loginUserController, resgisterUserController, updatePasswordController, updateUserByIdController } from "../dependencies";
+import { validateToken } from "../../../helper/veryfyToken";
+
 export const userRoutes = express.Router();
 
-userRoutes.post('/register',resgisterUserController.run.bind(resgisterUserController)) 
+userRoutes.post('/',resgisterUserController.run.bind(resgisterUserController)) 
+
 userRoutes.post('/login',loginUserController.run.bind(loginUserController))
 
+userRoutes.put('/id',validateToken,updateUserByIdController.run.bind(updateUserByIdController))
 
+userRoutes.put('/restar_password',updatePasswordController.run.bind(updatePasswordController))
 
 
 
