@@ -1,11 +1,11 @@
 import {RestaurantRepository } from "../domain/repositories/restaurantRepository";
 
-export class getRestaurantCase {
+export class getRestaurantIdCase {
     constructor(readonly RestaurantRepo: RestaurantRepository){}
-    async run(){
-        const restaurant = await this.RestaurantRepo.getRestaurant();
+    async run(id:number){
+        const restaurant = await this.RestaurantRepo.getRestaurantId(id);
         if(!restaurant){
-            throw new Error("ALGO SALIO MAL CON RESTAURANTE")
+            throw new Error("ALGO SALIO MAL CON RESTUARANTE")
         }
         return restaurant;
     }

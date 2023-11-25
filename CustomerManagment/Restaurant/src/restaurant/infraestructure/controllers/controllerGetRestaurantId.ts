@@ -1,21 +1,23 @@
 import { Request, Response } from "express";
-import { getRestaurantCase } from "../../application/getRestaurantUseCase";
+import { getRestaurantIdCase } from "../../application/getRestaurantIdUseCase";
 
-export class RestaurantControllerGet {
+export class RestaurantControllerGetId {
     constructor(
-        readonly getRestaurantUseCase: getRestaurantCase
+        readonly getRestaurantIdUseCase: getRestaurantIdCase
     ) { }
 
-    async getRestaurant(req: Request, res: Response) {
+    async getRestaurantId(req: Request, res: Response) {
+        const id = Number(req.params.id);
+        
         try {
-            const restaurantC = await this.getRestaurantUseCase.run()
+            const restaurantC = await this.getRestaurantIdUseCase.run(id)
             if (restaurantC != null) {
                 res.status(200).send({
                     status: "success",
                     data: restaurantC
                 });
             } else {
-                res.status(400).send('I dont know, i get the restaurants')
+                res.status(400).send('I dont know, i get the restaurant for id')
             }
         } catch (error) {
             res.status(500).send({

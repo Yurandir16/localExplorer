@@ -5,7 +5,7 @@ export class CreateRestaurantCase {
     async run(restaurants:RestaurantData){
         const restaurant = await this.RestaurantRepo.createRestaurant(restaurants);
         if(!restaurant){
-            throw new Error("ALGO SALIO MAL CON PAYPAL")
+            throw new Error("ALGO SALIO MAL CON RESTAURANTE")
         }
         return restaurant;
     }

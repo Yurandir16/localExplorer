@@ -7,11 +7,7 @@ const app = express();
 const signale = new Signale();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use('/api/v1/restaurant', restaurantRoute);
-
-
+app.use('/api/v1/Restaurant', restaurantRoute);
 const port = process.env.PORT;
 app.listen(port, () => {
   signale.success(`Corriendo en el puerto ${port}`);

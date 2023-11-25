@@ -1,0 +1,5 @@
+CREATE TABLE menu {
+    id SERIAL PRIMARY KEY,
+    pdf VARCHAR(255) NOT NULL,
+    restaurant_id INTEGER NOT NULL
+}

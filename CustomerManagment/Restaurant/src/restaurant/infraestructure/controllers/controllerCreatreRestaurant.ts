@@ -9,14 +9,15 @@ export class RestaurantControllerCreate {
 
     async createRestaurant(req: Request, res: Response) {
         const data: RestaurantData = {
-            id: req.body.id,
             name_local: req.body.name_local,
             description: req.body.description,
             gender: req.body.gender,
-            image: req.body.image,
-            addres: req.body.addres,
+            image: req.file?.originalname ||'',
+            address: req.body.address,
+            coordinate:req.body.coordinate,
+            status: req.body.status,
             user_id: req.body.user_id
-        }
+        };
         try {
             const restaurantC = await this.createRestaurantUseCase.run(data)
             if (restaurantC != null) {
