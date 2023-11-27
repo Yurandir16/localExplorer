@@ -1,33 +1,38 @@
 import { Request, Response } from "express";
-import { MenuData } from "../../domain/repositories/menuRepository";
 import { CreateMenuCase } from "../../application/usesCase/createMenuUseCase";
-
+import { Menu } from "../../domain/entities/menu";
 export class MenuControllerCreate {
-    constructor(
-        readonly createMenuUseCase: CreateMenuCase
-    ) { }
+    constructor(readonly createMenuUseCase: CreateMenuCase){}
 
     async createRestaurant(req: Request, res: Response) {
-        const data: MenuData = {
-            pdf:req.file?.originalname ||'',
-            retaurant_id:req.body.restaurant_id
-        };
+        console.log("controller")
         try {
-            const menur = await this.createMenuUseCase.run(data)
-            if (menur != null) {
-                res.status(200).send({
-                    status: "success",
-                    data: menur
+            let pdf= req.file?.originalname || '';
+            let restaurant_id = Number(req.body.restaurant_id);
+
+            let createMenu = await this.createMenuUseCase.run(pdf,restaurant_id)
+            if ( createMenu instanceof Error) {
+               return res.status(409).send({
+                    status: "Error",
+                    data: createMenu.message
                 });
-            } else {
-                res.status(400).send('I dont know, i create the menu')
+            } 
+            if (createMenu instanceof Menu){
+                return res.status(201).send({
+                    status:"success",
+                    data:{
+                        pdf: createMenu.pdf,
+                        restaurant_id: createMenu.retaurant_id
+                    }
+                })
+            }else{
+                return res.status(500).send({
+                    status:"error",
+                    message:"An unexpected error occurred while create the menu"
+                })
             }
         } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
-            });
+            return null;
         }
     }
 }

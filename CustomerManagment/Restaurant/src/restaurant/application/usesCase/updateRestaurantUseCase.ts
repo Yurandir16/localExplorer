@@ -1,12 +1,34 @@
-import {RestaurantRepository,RestaurantDataUpdate } from "../../domain/repositories/restaurantRepository";
+import {RestaurantRepository } from "../../domain/repositories/restaurantRepository";
+import {validate} from "class-validator";
+import { ValidatorUpdateRestaurant } from "../../domain/validations/restaurantValidate";
 
-export class updateRestaurantCase {
+export class UpdateRestaurantCase {
     constructor(readonly RestaurantRepo: RestaurantRepository){}
-    async run(restaurants:RestaurantDataUpdate){
-        const restaurant = await this.RestaurantRepo.updateRestaurant(restaurants);
-        if(!restaurant){
-            throw new Error("ALGO SALIO MAL CON RESTAURANTE")
+    
+    async run(id:number,name_local:string,description:string,gender:string,image:string,address:string,coordinate:string,status:boolean,user_id:string){
+        
+        let data = new ValidatorUpdateRestaurant(name_local,description,gender,image,address,coordinate,status,user_id);
+        const validation = await validate(data)
+        console.log(validation)
+        if (validation.length > 0){
+            throw new Error(JSON.stringify(validation))
         }
-        return restaurant;
+
+        try {
+            const updateRes = await this.RestaurantRepo.updateRestaurant(
+                id,
+                name_local,
+                description,
+                gender,
+                image,
+                address,
+                coordinate,
+                status,
+                user_id
+            );
+            return updateRes;
+        } catch (error) {
+            return null;
+        }
     }
 }    

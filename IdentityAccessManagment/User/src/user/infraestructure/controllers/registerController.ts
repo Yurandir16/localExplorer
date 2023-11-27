@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { RegisterUserUseCase } from "../../application/usesCase/registerUseCase";
+import { RegisterUserUseCase } from "../../application/usecase/registerUseCase";
 import { User } from "../../domain/entities/user";
 import { UploadedFile } from "express-fileupload";
-import uploadToFirebase from "../../../../../../auxFolder/api-localexplorer/src/helpers/saveImages";
+import uploadToFirebase from "../../../helpers/saveImages";
 
 
 export class ResgisterUserController {

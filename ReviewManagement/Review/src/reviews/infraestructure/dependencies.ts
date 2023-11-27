@@ -1,9 +1,9 @@
 import { MysqlReviewRepository } from "./repositories/mysqlReviewRepository";
 
-import { CreateReviewUseCase } from "../application/usesCase/createReviewUseCase";
+import { CreateReviewUseCase } from "../application/usecase/createReviewUseCase";
 import { CreateReviewController } from "./controllers/createController";
 
-import { ListAllReviewUseCase } from "../application/usesCase/listAllReviewUseCase";
+import { ListAllReviewUseCase } from "../application/usecase/listAllReviewUseCase";
 import { ReviewsController } from "./controllers/listReviewController";
 
 export const mysqlReviewRepository = new MysqlReviewRepository()

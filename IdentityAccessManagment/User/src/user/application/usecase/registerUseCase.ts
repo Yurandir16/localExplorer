@@ -3,7 +3,7 @@ import { User } from "../../domain/entities/user";
 import { v4 as uuid } from "uuid";
 import { IUsuarioRepository } from "../../domain/repositories/userRepository";
 import { ValidatorRegisterUser } from "../../domain/validations/user";
-import { encrypt } from "../../../../../auxFolder/api-localexplorer/src/helpers/ashs";
+import { encrypt } from "../../../helpers/ashs";
 
 
 

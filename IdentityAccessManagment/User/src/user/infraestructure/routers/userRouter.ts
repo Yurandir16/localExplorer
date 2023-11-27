@@ -1,6 +1,8 @@
 import express from "express";
 import { loginUserController, resgisterUserController, updatePasswordController, updateUserByIdController } from "../dependencies";
-import { validateToken } from "../../../helper/veryfyToken";
+import { validateToken } from "../../../helpers/veryfyToken";
+
+
 
 export const userRoutes = express.Router();
 

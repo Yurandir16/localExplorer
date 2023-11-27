@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { LoginUserUseCase } from "../../application/usesCase/loginUserUseCase";
+import { LoginUserUseCase } from "../../application/usecase/loginUserUseCase";
 
 export class LoginUserController {
     constructor(readonly loginUserController: LoginUserUseCase) {}

@@ -1,12 +1,27 @@
 import {RestaurantRepository } from "../../domain/repositories/restaurantRepository";
+import {validate} from "class-validator";
+import { ValidationUserGet } from "../../domain/validations/restaurantValidate";
 
-export class getRestaurantUserCase {
+export class getUserRestaurantCase {
     constructor(readonly RestaurantRepo: RestaurantRepository){}
-    async run(user:string){
-        const restaurant = await this.RestaurantRepo.getRestaurantUser(user);
-        if(!restaurant){
-            throw new Error("ALGO SALIO MAL CON RESTUARANTE")
+    
+    async run(user_id:string){
+        
+        let data = new ValidationUserGet(user_id);
+        
+        const validation = await validate(data)
+        console.log(validation)
+        if (validation.length > 0){
+            throw new Error(JSON.stringify(validation))
         }
-        return restaurant;
+
+        try {
+            const userRes = await this.RestaurantRepo.getRestaurantUser(
+                user_id
+            );
+            return userRes;
+        } catch (error) {
+            return null;
+        }
     }
 }    

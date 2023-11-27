@@ -1,31 +1,54 @@
 import { Request, Response } from "express";
-import { updateRestaurantCase } from "../../application/usesCase/updateRestaurantUseCase";
-import { RestaurantDataUpdate } from "../../domain/repositories/restaurantRepository";
+import { UpdateRestaurantCase } from "../../application/usesCase/updateRestaurantUseCase";
+import { Restaurant } from "../../domain/entities/restaurant";
 
 export class updateRestaurantController {
     constructor(
-        readonly updateRestaurantUseCase: updateRestaurantCase
+        readonly updateRestaurantUseCase: UpdateRestaurantCase
     ) { }
 
     async updateRestaurant(req: Request, res: Response) {
-        const data: RestaurantDataUpdate = req.body;
-        try { 
-            const restaurantC = await this.updateRestaurantUseCase.run(data)
-            console.log(restaurantC);
-            if (restaurantC != null) {
-                res.status(200).send({
-                    status: "success",
-                    datat : restaurantC
+        console.log("controller")
+        try {
+            let id = Number(req.body.id);
+            let name_local = req.body.name_local;
+            let description = req.body.description;
+            let gender = req.body.gender;
+            let image = req.file?.originalname ||'';
+            let address = req.body.address;
+            let coordinate = req.body.coordinate;
+            let status = Boolean(req.body.status);
+            let user_id = req.body.user_id;
+
+            let updateRes = await this.updateRestaurantUseCase.run(id,name_local,description,gender,image,address,coordinate,status,user_id)
+            if ( updateRes instanceof Error) {
+               return res.status(409).send({
+                    status: "Error",
+                    data: updateRes.message
                 });
-            } else {
-                res.status(400).send('I dont know, i update the restaurant')
+            } 
+            if (updateRes instanceof Restaurant){
+                return res.status(201).send({
+                    status:"success",
+                    data:{
+                        name_local:updateRes.name_local,
+                        description: updateRes.description,
+                        gender: updateRes.gender,
+                        image: updateRes.image,
+                        address: updateRes.address,
+                        coordinate: updateRes.coordinate,
+                        status: updateRes.status,
+                        user_id: updateRes.user_id,
+                    }
+                })
+            }else{
+                return res.status(500).send({
+                    status:"error",
+                    message:"An unexpected error occurred while update the restaurant"
+                })
             }
         } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
-            });
+            return null;
         }
     }
 }

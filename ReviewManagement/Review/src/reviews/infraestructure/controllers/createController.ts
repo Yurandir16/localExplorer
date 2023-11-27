@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateReviewUseCase } from "../../application/usesCase/createReviewUseCase";
+import { CreateReviewUseCase } from "../../application/usecase/createReviewUseCase";
 import { review } from "../../domain/entities/review";
 
 export class CreateReviewController {

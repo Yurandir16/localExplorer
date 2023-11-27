@@ -1,10 +1,10 @@
-import { query } from "../../../../../../auxFolder/api-localexplorer/src/database/connection";
+import { query } from "../../../database/connection";
 import { ResponseLogin, User } from "../../domain/entities/user";
 import { IUsuarioRepository } from "../../domain/repositories/userRepository";
-import { compare, encrypt } from '../../../../../auxFolder/api-localexplorer/src/helpers/ashs';
-import { tokenSigIn } from "../../../../../auxFolder/api-localexplorer/src/helpers/token";
+import { compare, encrypt } from '../../../helpers/ashs';
+import { tokenSigIn } from "../../../helpers/token";
 import { isEmailRegistered } from "../validation/usermysql";
-import deleteFromFirebase from "../../../../../auxFolder/api-localexplorer/src/helpers/deleteImage";
+import deleteFromFirebase from "../../../helpers/deleteImage";
 
 export class MysqlUserRepository implements IUsuarioRepository {
     

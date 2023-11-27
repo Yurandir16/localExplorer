@@ -1,6 +1,6 @@
 export class Menu {
     constructor(
-    readonly pdf:string,
-    readonly retaurant_id:number
+    public pdf:string,
+    public retaurant_id:number
     ){}
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UpdateUserByIdUseCase } from "../../application/usesCase/updateUserByIdUseCase";
-import { UpdatePasswordUserUsecase } from "../../application/usesCase/updatePasswordUserUseCase";
+import { UpdateUserByIdUseCase } from "../../application/usecase/updateUserByIdUseCase";
+import { UpdatePasswordUserUsecase } from "../../application/usecase/updatePasswordUserUseCase";
 
 
 

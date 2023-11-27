@@ -1,29 +1,47 @@
 import { Request, Response } from "express";
-import { getRestaurantUserCase } from "../../application/usesCase/getRestaurantUserUseCase";
+import { getUserRestaurantCase } from "../../application/usesCase/getRestaurantUserUseCase";
+import { Restaurant } from "../../domain/entities/restaurant";
 
 export class RestaurantControllerGetUser {
     constructor(
-        readonly getRestaurantIdUseCase: getRestaurantUserCase
+        readonly getRestaurantUserUseCase: getUserRestaurantCase
     ) { }
 
     async getRestaurantUser(req: Request, res: Response) {
-        const user = String(req.params.user);
+        console.log("controller")
         try {
-            const restaurantC = await this.getRestaurantIdUseCase.run(user)
-            if (restaurantC != null) {
-                res.status(200).send({
-                    status: "success",
-                    data: restaurantC
+            let user_id = String(req.query.user_id);
+
+            let userRes = await this.getRestaurantUserUseCase.run(user_id)
+            
+            if ( userRes instanceof Error) {
+               return res.status(409).send({
+                    status: "Error",
+                    data: userRes.message
                 });
-            } else {
-                res.status(400).send('I dont know, i get the restaurant for user')
+            } 
+            if (userRes instanceof Restaurant){
+                return res.status(201).send({
+                    status:"success",
+                    data:{
+                        name_local:userRes.name_local,
+                        description: userRes.description,
+                        gender: userRes.gender,
+                        image: userRes.image,
+                        address: userRes.address,
+                        coordinate: userRes.coordinate,
+                        status: userRes.status,
+                        user_id: userRes.user_id,
+                    }
+                })
+            }else{
+                return res.status(500).send({
+                    status:"error",
+                    message:"An unexpected error occurred restaurant for user"
+                })
             }
         } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
-            });
+            return null;
         }
     }
 }

@@ -8,7 +8,9 @@ const signale = new Signale();
 
 app.use(express.json());
 app.use('/api/v1/Restaurant', restaurantRoute);
-const port = process.env.PORT;
+
+const port = process.env.PORT || 3002;
 app.listen(port, () => {
-  signale.success(`Corriendo en el puerto ${port}`);
+  console.log(`Corriendo en el puerto ${port}`);
 });
+

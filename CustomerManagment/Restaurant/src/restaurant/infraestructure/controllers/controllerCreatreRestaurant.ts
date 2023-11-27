@@ -1,39 +1,54 @@
 import { Request, Response } from "express";
-import { RestaurantData } from "../../domain/repositories/restaurantRepository";
 import { CreateRestaurantCase } from "../../application/usesCase/createRestaurantUseCase";
-
+import { Restaurant } from "../../domain/entities/restaurant";
 export class RestaurantControllerCreate {
     constructor(
         readonly createRestaurantUseCase: CreateRestaurantCase
     ) { }
 
     async createRestaurant(req: Request, res: Response) {
-        const data: RestaurantData = {
-            name_local: req.body.name_local,
-            description: req.body.description,
-            gender: req.body.gender,
-            image: req.file?.originalname ||'',
-            address: req.body.address,
-            coordinate:req.body.coordinate,
-            status: req.body.status,
-            user_id: req.body.user_id
-        };
+    
+       
+        console.log("controller")
         try {
-            const restaurantC = await this.createRestaurantUseCase.run(data)
-            if (restaurantC != null) {
-                res.status(200).send({
-                    status: "success",
-                    data: restaurantC
+            let name_local = req.body.name_local;
+            let description = req.body.description;
+            let gender = req.body.gender;
+            let image = req.file?.originalname ||'';
+            let address = req.body.address;
+            let coordinate = req.body.coordinate;
+            let status = Boolean(req.body.status);
+            let user_id = req.body.user_id;
+            let createRes = await this.createRestaurantUseCase.run(name_local,description,gender,image,address,coordinate,status,user_id)
+            console.log(createRes)
+            if ( createRes instanceof Error) {
+               return res.status(409).send({
+                    status: "Error",
+                    message: createRes.message
                 });
-            } else {
-                res.status(400).send('I dont know, i create the restaurant')
+            } 
+            if (createRes instanceof Restaurant){
+                return res.status(201).send({
+                    status:"success",
+                    data:{
+                        name_local:createRes.name_local,
+                        description: createRes.description,
+                        gender: createRes.gender,
+                        image: createRes.image,
+                        address: createRes.address,
+                        coordinate: createRes.coordinate,
+                        status: createRes.status,
+                        user_id: createRes.user_id,
+                    }
+                })
+            }else{
+                return res.status(500).send({
+                    status:"error",
+                    message:"An unexpected error occurred while create the restaurant"
+                })
             }
         } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
-            });
+            return null;
         }
     }
 }

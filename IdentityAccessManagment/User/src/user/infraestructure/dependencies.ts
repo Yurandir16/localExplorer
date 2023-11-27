@@ -1,15 +1,15 @@
 import { MysqlUserRepository } from "./repositories/mysqUserRepository";
 
-import { RegisterUserUseCase } from "../application/usesCase/registerUseCase";
+import { RegisterUserUseCase } from "../application/usecase/registerUseCase";
 import { ResgisterUserController } from "./controllers/registerController";
 
 import { LoginUserController } from "./controllers/loginUserController";
-import { LoginUserUseCase } from "../application/usesCase/loginUserUseCase";
+import { LoginUserUseCase } from "../application/usecase/loginUserUseCase";
 
-import { UpdateUserByIdUseCase } from "../application/usesCase/updateUserByIdUseCase";
+import { UpdateUserByIdUseCase } from "../application/usecase/updateUserByIdUseCase";
 import { UpdateUserByIdController } from "./controllers/updateUseByIdController";
 
-import { UpdatePasswordUserUsecase } from "../application/usesCase/updatePasswordUserUseCase";
+import { UpdatePasswordUserUsecase } from "../application/usecase/updatePasswordUserUseCase";
 import { UpdatePasswordController } from "./controllers/updatePasswordUserController";
 
 

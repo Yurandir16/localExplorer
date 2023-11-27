@@ -1,4 +1,4 @@
-import { query } from "../../database/connection";
+import { query } from "../../../database/connection";
 // import { query2 } from "../../database/connection";
 import { review } from "../../domain/entities/review";
 import { IReviewRepository } from "../../domain/repositories/reviewRepository";

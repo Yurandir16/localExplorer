@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UpdateUserByIdUseCase } from "../../application/usesCase/updateUserByIdUseCase";
+import { UpdateUserByIdUseCase } from "../../application/usecase/updateUserByIdUseCase";
 import { UploadedFile } from "express-fileupload";
-import uploadToFirebase from "../../../../../../auxFolder/api-localexplorer/src/helpers/saveImages";
+import uploadToFirebase from "../../../helpers/saveImages";
 
 
 

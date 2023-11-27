@@ -8,21 +8,34 @@ export class RestaurantControllerGet {
 
     async getRestaurant(req: Request, res: Response) {
         try {
-            const restaurantC = await this.getRestaurantUseCase.run()
-            if (restaurantC != null) {
-                res.status(200).send({
+            const restaurant = await this.getRestaurantUseCase.getRestaurant();
+            if (restaurant && restaurant.length > 0) {
+                return res.status(200).send({
                     status: "success",
-                    data: restaurantC
+                    data: restaurant,
+                    message: 'List restaurant correct'
                 });
-            } else {
-                res.status(400).send('I dont know, i get the restaurants')
             }
-        } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
+            return res.status(404).json({
+                status: 'error',
+                message: 'No se encontraron restaurants',
             });
+        } catch (error) {
+            if (error instanceof Error) {
+    
+                if (error.message.startsWith('[')) {
+                  
+                  return res.status(400).send({
+                    status: "error",
+                    message: "Validation failed",
+                    errors: JSON.parse(error.message)
+                  });
+                }
+              }
+              return res.status(500).send({
+                status: "error",
+                message: "An error occurred."
+              });
         }
     }
 }

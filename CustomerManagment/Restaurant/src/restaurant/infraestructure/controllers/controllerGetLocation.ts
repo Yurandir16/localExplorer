@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getLocationRestaurantCase } from "../../application/usesCase/getLocationRestaurant";
+import { Restaurant } from "../../domain/entities/restaurant";
 
 export class RestaurantLocationControllerGet {
     constructor(
@@ -7,23 +8,40 @@ export class RestaurantLocationControllerGet {
     ) { }
 
     async getRestaurantlocation(req: Request, res: Response) {
-        const location = String(req.body.location);
+        console.log("controller")
         try {
-            const restaurantC = await this.getLocationRestaurantUseCase.run(location)
-            if (restaurantC != null) {
-                res.status(200).send({
-                    status: "success",
-                    data: restaurantC
+            let address = String(req.query.address);
+
+            let location = await this.getLocationRestaurantUseCase.run(address)
+            if ( location instanceof Error) {
+               return res.status(409).send({
+                    status: "Error",
+                    data: location.message
                 });
-            } else {
-                res.status(400).send('I dont know, i get the restaurants for location')
+            } 
+            if (Array.isArray(location) && location.length > 0){
+                return res.status(201).send({
+                    status:"success",
+                    data: location.map(restaurant => ({
+                        name_local:restaurant.name_local,
+                        description: restaurant.description,
+                        gender: restaurant.gender,
+                        image: restaurant.image,
+                        address: restaurant.address,
+                        coordinate: restaurant.coordinate,
+                        status: restaurant.status,
+                        user_id: restaurant.user_id,
+                        
+                    }))
+                })
+            }else{
+                return res.status(500).send({
+                    status:"error",
+                    message:"An unexpected error occurred location"
+                })
             }
         } catch (error) {
-            res.status(500).send({
-                status: "error",
-                data: "An error ocurred",
-                message: error,
-            });
+            return null;
         }
     }
 }

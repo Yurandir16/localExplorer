@@ -1,14 +1,11 @@
 import expess from "express";
 import multer from 'multer';
-import { McontrollerCreate } from "../dependencies";
-import { McontrollerGet } from "../dependencies";
-import { McontrollerUpdate } from "../dependencies";
-import { McontrollerPdf } from "../dependencies";
+import { McontrollerCreate,McontrollerGet,McontrollerUpdate,McontrollerPdf } from "../dependencies";
 export const menuRoute = expess.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './src/assets/pdf');
+      cb(null, './src/pdf');
     },
     filename: (req, file, cb) => {
       const ext = file.originalname.split('.').pop();

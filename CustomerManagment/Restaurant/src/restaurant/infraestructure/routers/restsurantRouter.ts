@@ -1,5 +1,5 @@
 import express from "express";
-import multer from 'multer';
+import multer from "multer";
 import { ResControllerCreate} from "../dependencies";
 import { ResControllerGet } from "../dependencies";
 import { ResControllerGetId } from "../dependencies";
@@ -27,7 +27,7 @@ restaurantRoute.post("/create-restaurant/" ,upload.single('image'),ResController
 restaurantRoute.get("/view-restaurants/", ResControllerGet.getRestaurant.bind(ResControllerGet))
 restaurantRoute.get("/view-restaurant/:id", ResControllerGetId.getRestaurantId.bind(ResControllerGetId));
 restaurantRoute.get("/view-retaurant-user/", ResControllerGetUser.getRestaurantUser.bind(ResControllerGetUser));
-restaurantRoute.put("/inactive-restaurant/:id", ResControllerInactive.inactiveRestaurant.bind(ResControllerInactive));
-restaurantRoute.put("/update-restaurant/", upload.single('imagen'),ResControllerUpdate.updateRestaurant.bind(ResControllerUpdate));
+restaurantRoute.put("/inactive-restaurant/", ResControllerInactive.inactiveRestaurant.bind(ResControllerInactive));
+restaurantRoute.put("/update-restaurant/", upload.single('image'),ResControllerUpdate.updateRestaurant.bind(ResControllerUpdate));
 restaurantRoute.get("/view-image/",ResControllerImage.getImageRestaurant.bind(ResControllerImage));
-restaurantRoute.get("/view-locationR",ResControllerLocation.getRestaurantlocation.bind(ResControllerLocation));
+restaurantRoute.get("/view-locationR/",ResControllerLocation.getRestaurantlocation.bind(ResControllerLocation));

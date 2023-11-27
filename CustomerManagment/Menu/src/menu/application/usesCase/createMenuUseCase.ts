@@ -1,12 +1,27 @@
-import {MenuRepository,MenuData } from "../../domain/repositories/menuRepository";
-
+import {MenuRepository} from "../../domain/repositories/menuRepository";
+import {validate} from "class-validator";
+import { ValidatorCreateMenu } from "../../domain/validations/menuValidate";
+import { Menu } from "../../domain/entities/menu";
 export class CreateMenuCase {
     constructor(readonly MenuRepo: MenuRepository){}
-    async run(menu:MenuData){
-        const menus = await this.MenuRepo.createMenu(menu);
-        if(!menus){
-            throw new Error("ALGO SALIO MAL CON MENU")
+    
+    async run(pdf:string,restaurant_id:number):Promise<string|Menu|null|Error>{
+        
+        let data = new ValidatorCreateMenu(pdf,restaurant_id);
+        const validation = await validate(data)
+        console.log(validation)
+        if (validation.length > 0){
+            throw new Error(JSON.stringify(validation))
         }
-        return menus;
+
+        try {
+            const createMenu = await this.MenuRepo.createMenu(
+                pdf,
+                restaurant_id
+            );
+            return createMenu;
+        } catch (error) {
+            return null;
+        }
     }
 }    
